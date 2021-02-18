@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style></style>
+    <title>查询页面</title>
+    <!-- 引入封装好的ajax -->>
+    <script src="./ajax.js"></script>
+    <link rel="stylesheet" href="./show.css">
+</head>
+<body>
+    <h1>宠物小精灵图鉴</h1>
+    <div style="text-align: center">
+        <input type="text" value="" id="enter">
+        <button id="btn">查询</button>
+    </div>
+    <div class="box">
+        <ul id="show">
+        </ul>
+    </div>
+    <script>
+        
+        var show = document.getElementById('show');
+        var enter = document.getElementById('enter');
+        var btn = document.getElementById('btn');
+
+        console.log('enter')
+        // 页面刷新之后就调用展示所有的小精灵的ajax
+        btn.onclick = function (){
+            var val = enter.value;
+        ajax({
+            type:'GET',
+            url:'http://localhost',
+            port:':3000',
+            path:'/search',
+            data:{
+                id:val,
+                name:val
+            },
+            success:function(data){
+                // console.log(data);
+                // 把来的数据变成对象并且使用扩展运算符将其复制
+                var showData = [...JSON.parse(data)];
+                showList(showData);
+            },
+            error:function(err){
+                alert('服务器错误');
+            }
+        })
+    }
+        // 展示数据的函数
+        function showList(data){
+            var copyList = data.map(function(item,index){
+                return`
+                <li>
+                    <h2>${item.id}</h2>
+                    <h3>${item.name}</h3>
+                    <div class="pic">
+                        <img src="${item.url}" alt="">
+                    </div>
+                    <div class="attr">
+                        <h4>属性</h4>
+                        <p>${item.attr[0]}</p>
+                        <p>${item.attr[1]}</p>
+                    </div>
+                    <div class="bh">
+                        <h4>捕获率</h4>
+                        <p>${item.capture}</p>
+                    </div>
+                </li>
+                `;
+            })
+            show.innerHTML = copyList.join('');
+        }
+    </script>
+</body>
+</html>

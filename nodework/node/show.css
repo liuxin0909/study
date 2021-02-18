@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width: 100%;
+}
+body > h1{
+text-align: center;
+}
+.box{
+    width: 1000px;
+    margin: 0 auto;
+}
+.box>ul{
+    width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+li{
+    list-style: none;
+}
+.box li{
+    width: 400px;
+    border: 2px solid black;
+}
+.box ul .pic {
+    width: 70%;
+    margin: 0 auto;
+}
+.box ul .pic img{
+    display: block;
+    width: 100%;
+}
